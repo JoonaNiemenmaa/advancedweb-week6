@@ -1,12 +1,12 @@
 import express from "express";
+import router from "./index";
 
 const app = express();
 const port = 3000;
 
-app.get("/", (request, response) => {
-	response.send("It works!");
-});
+app.use(express.static("public"));
+app.use(router);
 
 app.listen(port, () => {
-	console.log(`Started server on port ${port}!`);
+  console.log(`Started server on port ${port}!`);
 });
