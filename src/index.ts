@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import multer, { StorageEngine } from "multer";
 import { v4 } from "uuid";
 import { Router } from "express";
@@ -28,23 +28,26 @@ const router = Router();
 
 router.post("/upload", upload.single("image"), (request, response) => {
 	try {
-		if (!request.file) {
-			return response.status(400).send("No image sent.");
+		let image_id: Types.ObjectId | null = null;
+		if (request.file) {
+			const image = new Image({
+				filename: request.file.filename,
+				path: request.file.path,
+			});
+			image_id = image._id;
+			image.save();
 		}
-
-		const image = new Image({
-			filename: request.file.filename,
-			path: request.file.path,
-		});
 
 		const offer = new Offer({
 			title: request.body.title,
 			description: request.body.description,
 			price: request.body.price,
-			imageId: image._id,
 		});
 
-		image.save();
+		if (image_id) {
+			offer.imageId = image_id;
+		}
+
 		offer.save();
 
 		return response.status(201).send("Offer uploaded successfully!");
