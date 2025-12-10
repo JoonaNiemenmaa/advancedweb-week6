@@ -30,6 +30,7 @@ router.post("/upload", upload.single("image"), (request, response) => {
 	try {
 		let image_id: Types.ObjectId | null = null;
 		if (request.file) {
+			console.log(request.file);
 			const image = new Image({
 				filename: request.file.filename,
 				path: request.file.path,

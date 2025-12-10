@@ -4,7 +4,7 @@ interface IOffer extends Document {
 	title: string;
 	description: string;
 	price: number;
-	imageId?: ObjectId;
+	imageId?: Types.ObjectId;
 }
 
 const offer_schema = new Schema<IOffer>({
