@@ -1,29 +1,32 @@
 <!doctype html>
 <html>
+	<head>
+		<title>Advanced Web Applications Week 6</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="index.js" defer></script>
+	</head>
 
-<head>
-	<title>Advanced Web Applications Week 6</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="index.js"></script>
-</head>
+	<body>
+		<form
+			id="offerForm"
+			method="post"
+			enctype="multipart/form-data"
+			action="http://localhost:3000/upload"
+		>
+			<label for="title">Title</label>
+			<input name="title" id="title" class="title" type="text" />
 
-<body>
-	<form id="offerForm" method="post" enctype="multipart/form-data" action="http://localhost:3000/upload">
-		<label for="title">Title</label>
-		<input name="title" id="title" class="title" type="text"></input>
+			<label for="price">Price</label>
+			<input name="price" id="price" type="number" />
 
-		<label for="price">Price</label>
-		<input name="price" id="price" type="number"></input>
+			<label for="description">Description</label>
+			<textarea name="description" id="description"></textarea>
 
-		<label for="description">Description</label>
-		<textarea name="description" id="description"></textarea>
+			<input name="image" id="image" type="file" accept="image/*" />
+			<button>Submit</button>
+		</form>
 
-		<input name="image" id="image" type="file" accept="image/*"></input>
-		<button>Submit</button>
-	</form>
-
-	<div id="offersContainer"></div>
-</body>
-
+		<div id="offersContainer"></div>
+	</body>
 </html>

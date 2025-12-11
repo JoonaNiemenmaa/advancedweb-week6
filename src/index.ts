@@ -58,4 +58,34 @@ router.post("/upload", upload.single("image"), (request, response) => {
 	}
 });
 
+type TResponseOffer = {
+	title: string;
+	description: string;
+	price: Number;
+	image: string | null;
+};
+
+router.get("/offers", async (request, response) => {
+	const offers = await Offer.find();
+
+	async function find_image(
+		id: Types.ObjectId | undefined,
+	): Promise<string | null> {
+		return id ? (await Image.find({ _id: id }))[0].path.substring(7) : null;
+	}
+
+	const response_json: TResponseOffer[] = [];
+	for (const offer of offers) {
+		const response_offer: TResponseOffer = {
+			title: offer.title,
+			description: offer.description,
+			price: offer.price,
+			image: await find_image(offer.imageId),
+		};
+		response_json.push(response_offer);
+	}
+
+	response.json(response_json);
+});
+
 export default router;
